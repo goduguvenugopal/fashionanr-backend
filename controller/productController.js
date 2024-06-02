@@ -58,4 +58,33 @@ const getProducts = async (req, res) => {
   }
 };
 
-module.exports = { uploadProduct: [upload.single("image"), uploadProduct] , getProducts };
+// find single product by id logic code
+const findProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const findProduct = await Product.findById(id);
+    res.status(200).json({ message: "product find successfully", findProduct });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "internal server error" });
+  }
+};
+
+// delete product by id logic code
+const deleteProduct = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Product.findByIdAndDelete(id);
+    res.status(200).json({ message: "product deleted successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "internal server error" });
+  }
+};
+
+module.exports = {
+  uploadProduct: [upload.single("image"), uploadProduct],
+  getProducts,
+  deleteProduct,
+  findProduct
+};
