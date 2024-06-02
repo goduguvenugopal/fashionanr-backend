@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 // post method for uploading product logic code
 const uploadProduct = async (req, res) => {
   try {
-    const { category, title, price, rating, description , date } = req.body;
+    const { category, title, price, rating, description, date } = req.body;
 
     const image = req.file ? req.file.filename : undefined;
 
@@ -29,7 +29,7 @@ const uploadProduct = async (req, res) => {
       rating,
       description,
       image,
-      date
+      date,
     });
 
     await products.save();
@@ -42,5 +42,20 @@ const uploadProduct = async (req, res) => {
   }
 };
 
+// get products logic function
 
-module.exports = {uploadProduct : [upload.single("image"),uploadProduct] }
+const getProducts = async (req, res) => {
+  try {
+    const products = await Product.find({});
+    if (!products) {
+      return res.status(404).json({ message: "products not found" });
+    }
+
+    return res.status(200).json(products);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: " internal server error" });
+  }
+};
+
+module.exports = { uploadProduct: [upload.single("image"), uploadProduct] , getProducts };
