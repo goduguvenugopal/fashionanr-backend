@@ -1,6 +1,9 @@
 const Product = require("../model/Product");
 const Path = require("path");
 const multer = require("multer");
+const dotEnv = require("dotenv");
+
+dotEnv.config();
 
 // Set up multer storage configuration
 const storage = multer.diskStorage({
@@ -82,9 +85,23 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+// login function
+
+const login = async (req, res) => {
+  try {
+    const password = process.env.LOGIN;
+    res.status(200).json(password);
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({ message: "internal server error" });
+  }
+};
+
 module.exports = {
   uploadProduct: [upload.single("image"), uploadProduct],
   getProducts,
   deleteProduct,
-  findProduct
+  findProduct,
+  login
 };
