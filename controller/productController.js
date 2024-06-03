@@ -65,8 +65,8 @@ const getProducts = async (req, res) => {
 const findProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    const findProduct = await Product.findById(id);
-    res.status(200).json({ message: "product find successfully", data :findProduct });
+    const singleProduct = await Product.findById(id);
+    res.status(200).json({ message: "product find successfully", data : singleProduct });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "internal server error" });
