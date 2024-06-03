@@ -20,26 +20,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-// // Set up multer storage configuration
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "uploads/");
-//   },
-//   filename: function (req, file, cb) {
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
-
-// // Set up multer upload middleware
-// const upload = multer({ storage: storage });
-
-
 // post method for uploading product logic code
 const uploadProduct = async (req, res) => {
   try {
     const { category, title, price, rating, description, date } = req.body;
 
-    const image = req.file ? req.file.filename : undefined;
+    const image = req.file.path;
 
     const products = new Product({
       category,
