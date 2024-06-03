@@ -2,6 +2,9 @@ const Product = require("../model/Product");
 const path = require("path");
 const multer = require("multer");
 const dotEnv = require("dotenv");
+const fs = require("fs");
+
+
 
 dotEnv.config();
 
@@ -73,15 +76,28 @@ const findProduct = async (req, res) => {
   }
 };
 
-// delete product by id logic code
+ // Delete product by ID logic
 const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
-    await Product.findByIdAndDelete(id);
-    res.status(200).json({ message: "product deleted successfully" });
+    const product = await Product.findByIdAndDelete(id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Delete the image file from the server
+    if (product.image) {
+      const filePath = path.join(__dirname, "..", "uploads", product.image);
+      fs.unlink(filePath, (err) => {
+        if (err) console.log(err);
+      });
+    }
+
+    res.status(200).json({ message: "Product deleted successfully" });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: "internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
