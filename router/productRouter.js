@@ -2,6 +2,8 @@ const express = require("express")
 const router = express.Router()
 const productController = require("../controller/productController");
 const mime = require('mime');
+const path = require('path');
+const fs = require('fs');
 
 router.post("/uploadproduct" , productController.uploadProduct)
 router.get("/getproducts",productController.getProducts)
