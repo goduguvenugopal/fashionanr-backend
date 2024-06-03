@@ -8,13 +8,14 @@ const fs = require("fs");
 
 dotEnv.config();
 
-// Configure Multer for file upload
+
+ // Configure Multer for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + '-' + file.originalname);
+    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
   }
 });
 const upload = multer({ storage: storage });
