@@ -8,18 +8,31 @@ const fs = require("fs");
 
 dotEnv.config();
 
-// Set up multer storage configuration
+// Configure Multer for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, 'uploads/');
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
+    cb(null, new Date().toISOString() + '-' + file.originalname);
+  }
 });
-
-// Set up multer upload middleware
 const upload = multer({ storage: storage });
+
+
+// // Set up multer storage configuration
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads/");
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
+
+// // Set up multer upload middleware
+// const upload = multer({ storage: storage });
+
 
 // post method for uploading product logic code
 const uploadProduct = async (req, res) => {
