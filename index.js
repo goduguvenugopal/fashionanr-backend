@@ -7,7 +7,7 @@ const userRouter =  require("./router/userRouter")
 const productRouter = require("./router/productRouter")
  
 
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 3000
 
 // middleware 
 dotEnv.config()

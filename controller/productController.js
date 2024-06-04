@@ -2,7 +2,6 @@ const Product = require("../model/Product");
 const path = require("path");
 const multer = require("multer");
 const dotEnv = require("dotenv");
- 
 
 dotEnv.config();
 
@@ -12,7 +11,8 @@ const storage = multer.diskStorage({
     cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname));
+    const uniqueSuffix = Date.now();
+    cb(null, uniqueSuffix + file.originalname);
   },
 });
 const upload = multer({ storage: storage });
@@ -20,10 +20,10 @@ const upload = multer({ storage: storage });
 // post method for uploading product logic code
 const uploadProduct = async (req, res) => {
   try {
-    const { category, title, price, rating, description } = req.body;
+    const { category, title, price, rating, description ,date} = req.body;
 
     const image = req.file ? req.file.filename : undefined;
-    const date = new Date().toLocaleDateString();
+   
 
     const products = new Product({
       category,
@@ -31,8 +31,9 @@ const uploadProduct = async (req, res) => {
       price,
       rating,
       description,
-      image,
-      date
+      date ,
+      image 
+      
     });
 
     await products.save();
