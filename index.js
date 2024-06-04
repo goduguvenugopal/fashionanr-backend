@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URI)
 // router middleware endpoints 
 app.use("/authentication",userRouter);
 app.use("/product" , productRouter)
-app.use("/uploads" ,  express.static('uploads'))
+ 
 
 
 // listening server 
