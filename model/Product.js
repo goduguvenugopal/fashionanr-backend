@@ -27,11 +27,6 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
-  date: {
-    type: String,
-    required: true,
-  },
 });
 
 const Product = mongoose.model("Product", productSchema);

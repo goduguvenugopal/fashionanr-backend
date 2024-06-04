@@ -2,31 +2,28 @@ const Product = require("../model/Product");
 const path = require("path");
 const multer = require("multer");
 const dotEnv = require("dotenv");
-const fs = require("fs");
-
-
+ 
 
 dotEnv.config();
 
-
- // Configure Multer for file upload
+// Configure Multer for file upload
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, "uploads/");
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString().replace(/:/g, '-') + '-' + file.originalname);
-  }
+    cb(null, Date.now() + path.extname(file.originalname));
+  },
 });
 const upload = multer({ storage: storage });
-
 
 // post method for uploading product logic code
 const uploadProduct = async (req, res) => {
   try {
-    const { category, title, price, rating, description, date } = req.body;
+    const { category, title, price, rating, description } = req.body;
 
-    const image = req.file.path;
+    const image = req.file ? req.file.filename : undefined;
+    const date = new Date().toLocaleDateString();
 
     const products = new Product({
       category,
@@ -35,7 +32,7 @@ const uploadProduct = async (req, res) => {
       rating,
       description,
       image,
-      date,
+      date
     });
 
     await products.save();
@@ -69,14 +66,16 @@ const findProduct = async (req, res) => {
   try {
     const id = req.params.id;
     const singleProduct = await Product.findById(id);
-    res.status(200).json({ message: "product find successfully", data : singleProduct });
+    res
+      .status(200)
+      .json({ message: "product find successfully", data: singleProduct });
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: "internal server error" });
   }
 };
 
- // Delete product by ID logic
+// Delete product by ID logic
 const deleteProduct = async (req, res) => {
   try {
     const id = req.params.id;
@@ -84,14 +83,6 @@ const deleteProduct = async (req, res) => {
 
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
-    }
-
-    // Delete the image file from the server
-    if (product.image) {
-      const filePath = path.join(__dirname, "..", "uploads", product.image);
-      fs.unlink(filePath, (err) => {
-        if (err) console.log(err);
-      });
     }
 
     res.status(200).json({ message: "Product deleted successfully" });
@@ -119,5 +110,5 @@ module.exports = {
   getProducts,
   deleteProduct,
   findProduct,
-  login
+  login,
 };

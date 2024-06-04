@@ -5,7 +5,7 @@ const cors = require("cors")
 const dotEnv = require("dotenv")
 const userRouter =  require("./router/userRouter")
 const productRouter = require("./router/productRouter")
-const path = require('path');
+ 
 
 const port = process.env.PORT || 5000
 
@@ -26,10 +26,10 @@ mongoose.connect(process.env.MONGODB_URI)
 })
 
 
-// router endpoints 
+// router middleware endpoints 
 app.use("/authentication",userRouter);
 app.use("/product" , productRouter)
-app.use("/uploads" ,  express.static(path.join(__dirname, 'uploads')))
+app.use("/uploads" ,  express.static('uploads'))
 
 
 // listening server 
