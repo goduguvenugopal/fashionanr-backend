@@ -81,8 +81,12 @@ const deleteProduct = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const password = process.env.LOGIN;
-    res.status(200).json(password);
+    const {password} = req.body
+    const pass = process.env.LOGIN;
+    if(password === pass){
+      res.status(200).json({message : 'login successfully'});
+    }
+    
   } catch (error) {
     console.log(error);
 
