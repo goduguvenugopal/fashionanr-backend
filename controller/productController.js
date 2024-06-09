@@ -3,11 +3,11 @@ const dotEnv = require("dotenv");
 
 dotEnv.config();
 
- 
 // post method for uploading product logic code
 const uploadProduct = async (req, res) => {
   try {
-    const { category, title, price, rating, description ,date, image} = req.body;
+    const { category, title, price, rating, description, date, image } =
+      req.body;
 
     const products = new Product({
       category,
@@ -15,9 +15,8 @@ const uploadProduct = async (req, res) => {
       price,
       rating,
       description,
-      date ,
-      image 
-      
+      date,
+      image,
     });
 
     await products.save();
@@ -81,12 +80,14 @@ const deleteProduct = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    const {password} = req.body
+    const { password } = req.body;
     const pass = process.env.LOGIN;
-    if(password === pass){
-      res.status(200).json({message : 'login successfully'});
+
+    if (password === pass) {
+      res.status(200).json({ message: "login successfully" });
+    } else {
+      return res.status(401).json({ message: "Invalid password" });
     }
-    
   } catch (error) {
     console.log(error);
 
