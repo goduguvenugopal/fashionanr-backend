@@ -10,7 +10,7 @@ const sendMail = async (req, res) => {
     // createTranspoter
 
     const transporter = nodeMailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
       secure : false,
       auth: {
         user: process.env.EMAIL_USER,
