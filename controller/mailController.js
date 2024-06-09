@@ -27,9 +27,10 @@ const sendMail = async (req, res) => {
     };
 
     await transporter.sendMail(mailOptions);
-    res.status(200).send("Email sent successfully");
+    res.status(200).json({ message: "Email sent successfully" });
   } catch (error) {
-    res.status(500).send("Error sending email: ", error.message);
+    console.log(error);
+    res.status(500).json({ message: "internal server error", error });
   }
 };
 
