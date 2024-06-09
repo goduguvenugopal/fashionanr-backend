@@ -20,8 +20,8 @@ const sendMail = async (req, res) => {
     // mail options
 
     const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: to,
+      from: to,
+      to: process.env.EMAIL_USER,
       subject: subject,
       text: text,
     };
@@ -33,5 +33,4 @@ const sendMail = async (req, res) => {
   }
 };
 
-
-module.exports = sendMail
+module.exports = sendMail;
