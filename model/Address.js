@@ -13,12 +13,11 @@ const addressSchema = new mongoose.Schema({
   address: {
     type: String,
   },
-  user: [
-    {
+  user:  {
       type: mongoose.Schema.Types.ObjectId,
-      ref: user,
-    },
-  ],
+      ref: 'User'
+    }
+  
 });
 
 const Address = mongoose.model("Address" , addressSchema)

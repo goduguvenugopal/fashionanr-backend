@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Address = require("./Address");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -13,7 +14,9 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-  },
+  }
+
+
 });
 
 const User = mongoose.model("User", userSchema);
