@@ -27,8 +27,8 @@ const saveAddress = async (req, res) => {
 
 const getAddress = async (req, res) => {
   try {
-    const id = req.params.userId;
-    const userAddress = await Address.findById(id);
+    const userId = req.params.userId;
+    const userAddress = await Address.find({userId});
 
     if (!userAddress) {
       res.status(404).json({ message: "user not found" });
