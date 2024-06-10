@@ -6,7 +6,7 @@ const dotEnv = require("dotenv");
 const userRouter = require("./router/userRouter");
 const productRouter = require("./router/productRouter");
 const mailRouter = require("./router/mailRouter");
-const addressRouter = require("./model/Address");
+const addressRouter = require("./router/addressRouter");
 
 const port = process.env.PORT || 3000;
 
