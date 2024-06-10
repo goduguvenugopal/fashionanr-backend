@@ -6,6 +6,7 @@ const dotEnv = require("dotenv");
 const userRouter = require("./router/userRouter");
 const productRouter = require("./router/productRouter");
 const mailRouter = require("./router/mailRouter");
+const addressRouter = require("./model/Address");
 
 const port = process.env.PORT || 3000;
 
@@ -29,6 +30,7 @@ mongoose
 app.use("/authentication", userRouter);
 app.use("/product", productRouter);
 app.use("/mail", mailRouter);
+app.use("/address", addressRouter);
 
 // listening server
 app.listen(port, () => {
