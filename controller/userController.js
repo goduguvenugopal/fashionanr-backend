@@ -45,6 +45,7 @@ const loginUser = async (req, res) => {
         .json({ message: "user not found and password not matched " });
     }
 
+// jwt token generating 
     const token = jwt.sign({ user: exists._id }, secretKey);
 
     res.status(200).json({ token: token });
