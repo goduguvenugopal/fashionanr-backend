@@ -1,5 +1,5 @@
 const Address = require("../model/Address");
-const User = require("../model/User");
+ 
 
 // post method controlller logic
 
