@@ -5,18 +5,14 @@ const User = require("../model/User");
 
 const saveAddress = async (req, res) => {
   try {
-    const { name, mobile, code, address } = req.body;
-    const userId = await User.findById(req.user);
-    if (!userId) {
-      res.status(404).json({ message: "user not found " });
-    }
+    const { name, mobile, code, address, userId } = req.body;
 
     const saveAdd = new Address({
       name,
       mobile,
       code,
       address,
-      user: userId._id,
+      userId,
     });
 
     await saveAdd.save();
@@ -27,4 +23,22 @@ const saveAddress = async (req, res) => {
   }
 };
 
-module.exports = { saveAddress };
+// get addresses controller code
+
+const getAddress = async (req, res) => {
+  try {
+    const id = req.params.userId;
+    const userAddress = await Address.findById(id);
+
+    if (!userAddress) {
+      res.status(404).json({ message: "user not found" });
+    }
+
+    res.status(200).json(userAddress);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("intenal server error");
+  }
+};
+
+module.exports = { saveAddress , getAddress};
