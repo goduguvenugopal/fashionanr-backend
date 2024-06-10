@@ -4,6 +4,6 @@ const addressController = require("../controller/addressController");
  
 
 router.post("/add-address",  addressController.saveAddress);
-router.get("/get-address", addressController.getAddress)
+router.get("/get-address/:userId", addressController.getAddress)
 
 module.exports = router;
