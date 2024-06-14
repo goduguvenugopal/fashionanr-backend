@@ -5,7 +5,7 @@ dotEnv.config();
 
 const sendMail = async (req, res) => {
   try {
-    const { to, subject, htmlContent } = req.body;
+    const { to, subject, html} = req.body;
 
     // createTranspoter
 
@@ -23,7 +23,7 @@ const sendMail = async (req, res) => {
       from: process.env.EMAIL_USER,
       to: to,
       subject: subject,
-      html: htmlContent,
+      html: html,
     };
 
     await transporter.sendMail(mailOptions);
