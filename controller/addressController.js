@@ -4,11 +4,12 @@ const Address = require("../model/Address");
 
 const saveAddress = async (req, res) => {
   try {
-    const { name, mobile, code, address, userId } = req.body;
+    const { name, mobile, email, code, address, userId } = req.body;
 
     const saveAdd = new Address({
       name,
       mobile,
+      email,
       code,
       address,
       userId,

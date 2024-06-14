@@ -7,6 +7,9 @@ const addressSchema = new mongoose.Schema({
   mobile: {
     type: Number,
   },
+  email: {
+    type: String,
+  },
   code: {
     type: Number,
   },
