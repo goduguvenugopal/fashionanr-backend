@@ -7,6 +7,7 @@ const userRouter = require("./router/userRouter");
 const productRouter = require("./router/productRouter");
 const mailRouter = require("./router/mailRouter");
 const addressRouter = require("./router/addressRouter");
+const orderRouter = require("./router/orderRouter");
 
 const port = process.env.PORT || 3000;
 
@@ -31,6 +32,7 @@ app.use("/authentication", userRouter);
 app.use("/product", productRouter);
 app.use("/mail", mailRouter);
 app.use("/address", addressRouter);
+app.use("/order", orderRouter);
 
 // listening server
 app.listen(port, () => {
