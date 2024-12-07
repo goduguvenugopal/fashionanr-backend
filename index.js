@@ -11,11 +11,29 @@ const orderRouter = require("./router/orderRouter");
 
 const port = process.env.PORT || 3000;
 
+const allowedOrigins = [
+  "https://fashionanr.netlify.app",
+  "https://fashionanr-dashboard.netlify.app",
+];
+
+// cors configurations
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+};
+
+
 // middleware
 dotEnv.config();
 app.use(express.json());
 app.use(express.static("public"));
-app.use(cors({ origin: "*" }));
+app.use(cors(corsOptions));
 
 //mongoose connection to the mongodb
 mongoose
